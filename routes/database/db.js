@@ -1,1 +1,1 @@
-module.exports.url='root:root@cluster0-lehaf.mongodb.net/test?retryWrites=true&w=majority'
+module.exports.url='mongodb+srv://root:root@cluster0-lehaf.mongodb.net/test?retryWrites=true&w=majority'
