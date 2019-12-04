@@ -6,6 +6,11 @@ var registerRepo=require('../repositories/registerRepo')
 
 module.exports.register=(req,res)=>{
     var email=req.body.credentials.email
+    var password=req.body.credentials.password
+    var confirmPassword=req.body.credentials.confirmpassword
+    console.log(password,  confirmPassword)
+    if(password==confirmPassword){
+
     console.log(email+' pasword at service')
     registerRepo.getUser({'credentials.email':email},(err,exist)=>{
         console.log(exist);
@@ -35,4 +40,12 @@ module.exports.register=(req,res)=>{
             
         }         
     })
+
+    }
+    else{
+        res.json({
+            "success":false,
+            "message":"Pasword and confirmpasswords are not matching"
+        })
+    }
 }
