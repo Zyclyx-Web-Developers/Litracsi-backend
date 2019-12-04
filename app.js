@@ -10,7 +10,7 @@ var url=db.url;
 console.log(url+' url')
 mongoose.connect(url)
 
-var register=require('./routes/controllers/registerController');{
+var register=require('./routes/controllers/userController');{
     app.use('/register',register)
 }
 
