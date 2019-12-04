@@ -5,21 +5,27 @@ var Register=require('../model/registerSchema')
 
 module.exports.getUser=(email,callback)=>{
     console.log(JSON.stringify(email)+' email at repo')
-    var obj='credentials:'+email
-    Register.find({obj}).then(result=>{
-        console.log(result+ JSON.stringify(obj))
+   
+    Register.findOne(email).then(result=>{
         callback(null,result)
     }).catch(error=>{
         callback(null,error)
     })
+    // .then(result=>{
+    //     console.log(result+ JSON.stringify(email)+' data at repo')
+    //     callback(result,null)
+    // }).catch(error=>{
+    //     console.log(error+' eror at repo')
+    //     callback(error,null)
+    // })
 }
 
 module.exports.createUser=(req,callback)=>{
    
     console.log(req.body.credentials.password+' req')
 var Reg=new Register({
-'credentials.email':req.body.credentials.email,
-'credentials.password':req.body.credentials.password
+credentials:{email:req.body.credentials.email,
+password:req.body.credentials.password}
 })
 
 Reg.save().then(result=>{

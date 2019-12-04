@@ -6,14 +6,21 @@ var registerRepo=require('../repositories/registerRepo')
 
 module.exports.register=(req,res)=>{
     var email=req.body.credentials.email
-    console.log(req.body.credentials.password,+'email '+email+' pasword at service')
-    registerRepo.getUser({email},(err,exist)=>{
+    console.log(email+' pasword at service')
+    registerRepo.getUser({'credentials.email':email},(err,exist)=>{
         console.log(exist);
        // if(err) throw err
         console.log(JSON.stringify(exist)+' user exists')
 
-         if(!exist){
+         if(exist){
 
+            console.log('in if')
+            res.json({
+                "Success":false,
+                "message":'email already exists'
+            })
+        }
+        else{
             console.log('unique user');
             registerRepo.createUser(req,(err,user)=>{
                 if(err) throw err
@@ -25,16 +32,7 @@ module.exports.register=(req,res)=>{
                     })   
                 }
             })
-
-           
-        }
-        else{
             
-            console.log('in if')
-            res.json({
-                "Success":false,
-                "message":'email already exists'
-            })
         }         
     })
 }

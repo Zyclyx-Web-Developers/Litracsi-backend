@@ -1,4 +1,6 @@
 var mongoose=require('mongoose')
+var express=require('express');
+var router=express.Router();
 console.log('in schema')
 // var registerSchema=mongoose.Schema({
 //     credentials:{
@@ -52,15 +54,16 @@ console.log('in schema')
 
 
 // })
-
-var registerSchema=mongoose.Schema({
+var Register=mongoose.Schema;
+var registerSchema=Register({
     credentials:{
         email:{type:String},
         password:{type:String},
-        confirmpassword:{type:String}
-    }
+     //   confirmpassword:{type:String}
     
-})
+    }
+ }
+// { typeKey: '$type' }
+)
 
-var Register=mongoose.model('Register',registerSchema)
-module.exports=Register
+module.exports=mongoose.model('Register',registerSchema)
