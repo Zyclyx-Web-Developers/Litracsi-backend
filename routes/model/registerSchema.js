@@ -58,6 +58,7 @@ var Register=mongoose.Schema;
 var registerSchema=Register({
     credentials:{
         email:{type:String},
+        name:{type:String},
         password:{type:String},
      //   confirmpassword:{type:String}
     

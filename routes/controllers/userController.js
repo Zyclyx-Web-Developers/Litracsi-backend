@@ -17,4 +17,16 @@ router.post('/login',(req,res)=>{
     return userService.loginUserCheck(req,res);
 })
 
+router.post('/forgotpassword',(req,res)=>{
+    return userService.forgotpassword(req,res);
+})
+
+router.post('/validatePassword',(req,res)=>{
+    return userService.validateUser(req,res)
+})
+
+router.post('/resetPassword',(req,res)=>{
+    return userService.resetPassword(req,res);
+})
+
 module.exports=router

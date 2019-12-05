@@ -4,6 +4,9 @@ var mongoose=require('mongoose');
 var Register=require('../model/registerSchema')
 var bcrypt=require('bcrypt')
 
+
+// get user data
+
 module.exports.getUser=(email,callback)=>{
     console.log(JSON.stringify(email)+' email at repo')
    
@@ -12,20 +15,15 @@ module.exports.getUser=(email,callback)=>{
     }).catch(error=>{
         callback(null,error)
     })
-    // .then(result=>{
-    //     console.log(result+ JSON.stringify(email)+' data at repo')
-    //     callback(result,null)
-    // }).catch(error=>{
-    //     console.log(error+' eror at repo')
-    //     callback(error,null)
-    // })
 }
+//storing of user details on database
 
 module.exports.createUser=(req,callback)=>{
    
     console.log(req.body.credentials.password+' req')
 var Reg=new Register({
 credentials:{email:req.body.credentials.email,
+    name:req.body.credentials.name,
 password:bcrypt.hashSync(req.body.credentials.password,10)}
 })
 
@@ -35,17 +33,9 @@ Reg.save().then(result=>{
 .catch(error=>{
   callback(null,error)
 })
-
-// .then(result=>{
-//     console.log('result')
-//     callback(null,result)
-// }).catch(error=>{
-//     console.log('error')
-//     callback(error,null)
-// })
-
-
 }
+
+//validation of username and password
 
 module.exports.loginUserCheck=(email,callback)=>{
 
@@ -59,3 +49,14 @@ module.exports.loginUserCheck=(email,callback)=>{
 
 }
 
+module.exports.update=(email,password,callback)=>{
+    console.log(email, password)
+  
+    Register.updateOne(email,password)
+   .then(result=>{
+        callback(null,result)
+    })
+    .catch(error=>{
+        callback(null,error)
+    })
+}
